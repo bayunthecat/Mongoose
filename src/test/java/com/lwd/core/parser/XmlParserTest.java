@@ -31,5 +31,6 @@ public class XmlParserTest {
     @Test
     public void testParse() throws IOException, SAXException {
         saxParser.parse(resource, parser);
+        System.out.println(parser.getBeanDefinitionList());
     }
 }

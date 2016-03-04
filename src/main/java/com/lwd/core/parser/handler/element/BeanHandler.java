@@ -7,24 +7,30 @@ import com.lwd.core.parser.handler.attribute.IdAttributeHandler;
 import com.lwd.core.parser.handler.attribute.NameAttributeHandler;
 import org.xml.sax.Attributes;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
-//TODO hide linked list behind custom stack implementation
 public class BeanHandler implements ElementHandler {
 
-    //TODO Should contain only reference to a single object shared by all manners of handlers.
     private Map<String, AttributeHandler> attributeHandlerMap;
 
-    //TODO configurable list of handlers.
     public BeanHandler() {
+        attributeHandlerMap = new HashMap<>();
         attributeHandlerMap.put("class", new ClassAttributeHandler());
         attributeHandlerMap.put("id", new IdAttributeHandler());
         attributeHandlerMap.put("name", new NameAttributeHandler());
     }
 
-    public void handle(Attributes attributes, LinkedList<Object> stack) {
+    public void BeanHandler(Map<String, AttributeHandler> attributeHandlerMap) {
+        this.attributeHandlerMap = attributeHandlerMap;
+    }
+
+    @SuppressWarnings("unchecked")
+    public void handleStart(Attributes attributes, LinkedList<Object> stack) {
         BeanDefinition beanDefinition = new BeanDefinition();
+        ((List<BeanDefinition>)stack.peek()).add(beanDefinition);
         for(int i = 0; i < attributes.getLength(); i++) {
             AttributeHandler attributeHandler = attributeHandlerMap.get(attributes.getQName(i));
             processAttribute(attributeHandler, attributes.getValue(i), beanDefinition);

@@ -1,3 +1,11 @@
 <beans>
-    <bean id="beanA" class="com.lwd.core.BeanA"/>
+
+    <bean id="beanA" class="com.lwd.core.examples.BeanA">
+
+        <property name="propertyName" value="1"/>
+
+    </bean>
+
+    <bean id="beanB" name="IBean" class="com.lwd.core.examples.BeanA"/>
+
 </beans>
