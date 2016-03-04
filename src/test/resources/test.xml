@@ -1,0 +1,3 @@
+<beans>
+    <bean id="beanA" class="com.lwd.core.BeanA"/>
+</beans>
